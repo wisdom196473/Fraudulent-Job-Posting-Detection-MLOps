@@ -1,4 +1,5 @@
 import string
+import os
 import pandas as pd
 import contractions
 from sklearn.preprocessing import LabelEncoder
@@ -184,17 +185,17 @@ def print_feature_summary(structured_features, text_features):
     print("Text features include:", text_features.columns.tolist())
 
 
-def save_features(structured_features, text_features, target_features, path='./'):
-    """Save feature stores and label encoders to disk in Parquet format."""
+def save_features(structured_features, text_features, target_features, path='./job_repo/feature_repo/data/'):
+    """Save feature stores to disk in Parquet format."""
+
+    # Ensure the directory exists; create it if not
+    os.makedirs(path, exist_ok=True)
 
     # Save structured features as Parquet
-    structured_features.to_parquet(path + 'structured_features.parquet', index=False)
+    structured_features.to_parquet(os.path.join(path, 'structured_features.parquet'), index=False)
 
     # Save text features as Parquet
-    text_features.to_parquet(path + 'text_features.parquet', index=False)
+    text_features.to_parquet(os.path.join(path, 'text_features.parquet'), index=False)
 
-    # Save target_features as Parquet
-    text_features.to_parquet(path + 'target_features.parquet', index=False)
-
-    print("Feature stores and label encoders saved successfully in Parquet format!")
-
+    # Save target features as Parquet
+    target_features.to_parquet(os.path.join(path, 'target_features.parquet'), index=False)

@@ -33,7 +33,7 @@ def handle_missing_values(df):
     # Handle text columns
     text_columns = ['title', 'description', 'requirements', 'company_profile', 'benefits']
     for col in text_columns:
-        df[col] = df[col].fillna('')
+        df.loc[:, col] = df[col].fillna('')
 
     # Handle categorical columns
     categorical_mappings = {
@@ -46,13 +46,14 @@ def handle_missing_values(df):
     }
 
     for col, placeholder in categorical_mappings.items():
-        df[col] = df[col].fillna(placeholder)
+        df.loc[:, col] = df[col].fillna(placeholder)
 
     # Add missing indicators to the dataframe
     for col_name, indicator in missing_indicators.items():
-        df[col_name] = indicator
+        df.loc[:, col_name] = indicator
 
     return df
+
 
 
 stop_words = set(stopwords.words('english'))  # Set of English stopwords

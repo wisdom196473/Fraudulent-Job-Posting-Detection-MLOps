@@ -55,9 +55,12 @@ def handle_missing_values(df):
     return df
 
 
-
 stop_words = set(stopwords.words('english'))  # Set of English stopwords
 lemmatizer = WordNetLemmatizer()
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+
 
 def clean_text(text):
     """Clean, tokenize, and remove stopwords from text data."""
@@ -66,22 +69,27 @@ def clean_text(text):
     if pd.isna(text) or text == '':
         return ''
 
-    # Basic cleaning
-    text = contractions.fix(text)  # Expand contractions
-    text = ''.join([char if char.isalnum() or char.isspace() else ' ' for char in text])
-    text = text.lower()  # Convert to lowercase
-    text = ' '.join(text.split())  # Remove extra spaces
+    # Ensure text is a string
+    if not isinstance(text, str):
+        text = str(text)
 
-    # Lemmatization and Stopword Removal
     try:
+        # Basic cleaning
+        text = contractions.fix(text)  # Expand contractions
+        text = ''.join([char if char.isalnum() or char.isspace() else ' ' for char in text])
+        text = text.lower()  # Convert to lowercase
+        text = ' '.join(text.split())  # Remove extra spaces
+
+        # Lemmatization and Stopword Removal
         text = ' '.join([
             lemmatizer.lemmatize(word)
             for word in text.split()
             if word not in stop_words  # Remove stopwords
         ])
+
     except Exception as e:
         print(f"Lemmatization error: {e}")
-        text = ''
+        return ''
 
     return text
 
@@ -174,3 +182,16 @@ def print_feature_summary(structured_features, text_features):
 
     print(f"\nText Features Shape: {text_features.shape}")
     print("Text features include:", text_features.columns.tolist())
+
+
+def save_features(structured_features, text_features, path='./'):
+    """Save feature stores and label encoders to disk in Parquet format."""
+
+    # Save structured features as Parquet
+    structured_features.to_parquet(path + 'structured_features.parquet', index=False)
+
+    # Save text features as Parquet
+    text_features.to_parquet(path + 'text_features.parquet', index=False)
+
+    print("Feature stores and label encoders saved successfully in Parquet format!")
+

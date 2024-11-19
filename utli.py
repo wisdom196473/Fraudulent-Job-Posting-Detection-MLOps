@@ -184,7 +184,7 @@ def print_feature_summary(structured_features, text_features):
     print("Text features include:", text_features.columns.tolist())
 
 
-def save_features(structured_features, text_features, path='./'):
+def save_features(structured_features, text_features, target_features, path='./'):
     """Save feature stores and label encoders to disk in Parquet format."""
 
     # Save structured features as Parquet
@@ -192,6 +192,9 @@ def save_features(structured_features, text_features, path='./'):
 
     # Save text features as Parquet
     text_features.to_parquet(path + 'text_features.parquet', index=False)
+
+    # Save target_features as Parquet
+    text_features.to_parquet(path + 'target_features.parquet', index=False)
 
     print("Feature stores and label encoders saved successfully in Parquet format!")
 

@@ -2,7 +2,6 @@ pandas
 numpy
 matplotlib
 seaborn
-beautifulsoup4
 contractions
 unidecode
 scikit-learn

@@ -8,3 +8,4 @@ unidecode
 scikit-learn
 nltk
 transformers
+feast

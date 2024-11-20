@@ -1,5 +1,6 @@
 import string
 import os
+import re
 import pandas as pd
 import contractions
 from sklearn.preprocessing import LabelEncoder
@@ -7,7 +8,16 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import nltk
 from transformers import AutoTokenizer
+from spacy.lang.en.stop_words import STOP_WORDS
+import spacy
+from pandarallel import pandarallel
 
+stop_words = set(stopwords.words('english'))  # Set of English stopwords
+lemmatizer = WordNetLemmatizer()
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
+nlp = spacy.load("en_core_web_sm") #python -m spacy download en_core_web_sm
 
 # Select the Features with Domain Knowledge
 
@@ -56,55 +66,36 @@ def handle_missing_values(df):
     return df
 
 
-stop_words = set(stopwords.words('english'))  # Set of English stopwords
-lemmatizer = WordNetLemmatizer()
-nltk.download('stopwords')
-nltk.download('wordnet')
-nltk.download('omw-1.4')
 
 
 def clean_text(text):
     """Clean, tokenize, and remove stopwords from text data."""
 
-    # Handle missing or empty text
-    if pd.isna(text) or text == '':
-        return ''
+    text = text.lower()
+    text = re.sub(r'<.*?>', '', text)
+    text = re.sub(r'http\S+', '', text)
+    text = re.sub(r'[^a-zA-Z0-9]', ' ', text)
+    tokens = nltk.word_tokenize(text)
+    stop_words = set(nltk.corpus.stopwords.words('english'))
+    tokens = [word for word in tokens if word not in stop_words]
+    cleaned_text = ' '.join(tokens)
+    doc = nlp(cleaned_text)
+    normalized_words = [token.lemma_ for token in doc]
+    normalized_text = ' '.join(normalized_words)
 
-    # Ensure text is a string
-    if not isinstance(text, str):
-        text = str(text)
-
-    try:
-        # Basic cleaning
-        text = contractions.fix(text)  # Expand contractions
-        text = ''.join([char if char.isalnum() or char.isspace() else ' ' for char in text])
-        text = text.lower()  # Convert to lowercase
-        text = ' '.join(text.split())  # Remove extra spaces
-
-        # Lemmatization and Stopword Removal
-        text = ' '.join([
-            lemmatizer.lemmatize(word)
-            for word in text.split()
-            if word not in stop_words  # Remove stopwords
-        ])
-
-    except Exception as e:
-        print(f"Lemmatization error: {e}")
-        return ''
-
-    return text
+    return normalized_text
 
 
 # Prepare the First Feature
 
 def prepare_initial_features(df):
-    """Prepare initial features including text cleaning"""
+    """Prepare initial features including text cleaning using Pandarallel"""
     df = handle_missing_values(df)
 
     text_columns = ['title', 'description', 'requirements', 'company_profile', 'benefits']
     for col in text_columns:
         print(f"Processing {col}...")
-        df[f'{col}_cleaned'] = df[col].apply(clean_text)
+        df[f'{col}_cleaned'] = df[col].parallel_apply(clean_text)
 
     df['no_logo_no_questions'] = ((df['has_company_logo'] == 0) &
                                   (df['has_questions'] == 0)).astype(int)

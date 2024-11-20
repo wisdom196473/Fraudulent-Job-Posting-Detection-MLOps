@@ -3,8 +3,8 @@ numpy
 matplotlib
 seaborn
 contractions
-unidecode
 scikit-learn
 nltk
-transformers
 feast
+pandarallel
+spacy

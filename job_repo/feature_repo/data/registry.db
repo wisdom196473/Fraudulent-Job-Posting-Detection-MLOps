@@ -1,0 +1,77 @@
+
+B
+"
+__dummy"
+__dummy_idJjob_project
+Ó™ô¹¨¢ÈãÓ™ô¹¨¢Èã
+X
+8
+job_idUnique identifier for job"job_idJjob_project
+Ó™ô¹ˆ÷ËãÓ™ô¹ˆ÷Ëã1"$1723a862-db06-4918-8b02-6f792c4db736*¢şö¹ˆ‚×ì2Ø
+·
+job_structured_features_viewjob_projectjob_id"
+location"
+employment_type"
+required_experience"
+required_education"
+industry"
+function"
+telecommuting"
+has_company_logo"
+has_questions"
+no_logo_no_questions"
+location_freq"
+employment_type_freq"
+required_experience_freq"
+required_education_freq"
+industry_freq"
+function_freq"
+description_is_missing"
+requirements_is_missing"
+company_profile_is_missing"
+benefits_is_missing"
+location_is_missing"
+employment_type_is_missing""
+required_experience_is_missing"!
+required_education_is_missing"
+industry_is_missing"
+function_is_missing"
+title_length"
+description_length"
+requirements_length"
+company_profile_length"
+benefits_length2€£:event_timestampZ" data/structured_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢job_structured_data@b
+
+job_id
+Ó™ô¹øœÏãÓ™ô¹øœÏã2é
+È
+job_target_feature_viewjob_projectjob_id"
+
+fraudulent2€£:tevent_timestampZdata/target_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢
+job_target@b
+
+job_id
+Ó™ô¹ˆµáãÓ™ô¹ˆµáã2Ò
+±
+job_text_features_viewjob_projectjob_id"
+title_cleaned"
+description_cleaned"
+requirements_cleaned"
+company_profile_cleaned"
+benefits_cleaned2€£:uevent_timestampZdata/text_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢job_text_data@b
+
+job_id
+Ó™ô¹ÈäæãÓ™ô¹ÈäæãR¸
+¾
+,feast.infra.online_stores.sqlite.SqliteTable"
+a/mnt/c/Users/yzy_s/PycharmProjects/mlops-final-project/job_repo/feature_repo/data/online_store.db(job_project_job_structured_features_view
+¹
+,feast.infra.online_stores.sqlite.SqliteTable"ˆ
+a/mnt/c/Users/yzy_s/PycharmProjects/mlops-final-project/job_repo/feature_repo/data/online_store.db#job_project_job_target_feature_view
+¸
+,feast.infra.online_stores.sqlite.SqliteTable"‡
+a/mnt/c/Users/yzy_s/PycharmProjects/mlops-final-project/job_repo/feature_repo/data/online_store.db"job_project_job_text_features_viewbevent_timestampZ" data/structured_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢job_structured_dataªjob_projectbƒevent_timestampZdata/text_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢job_text_dataªjob_projectb‚event_timestampZdata/target_features.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢
+job_targetªjob_projectŠE
+%
+job_projectA project for job data
+Ó™ô¹Ø­®ÂÓ™ô¹Ø­®Â

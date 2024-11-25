@@ -8,3 +8,5 @@ nltk
 feast
 pandarallel
 spacy
+h2o
+mlflow

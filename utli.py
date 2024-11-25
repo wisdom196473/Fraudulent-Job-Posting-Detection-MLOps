@@ -11,6 +11,7 @@ from transformers import AutoTokenizer
 from spacy.lang.en.stop_words import STOP_WORDS
 import spacy
 from pandarallel import pandarallel
+pandarallel.initialize()
 
 stop_words = set(stopwords.words('english'))  # Set of English stopwords
 lemmatizer = WordNetLemmatizer()

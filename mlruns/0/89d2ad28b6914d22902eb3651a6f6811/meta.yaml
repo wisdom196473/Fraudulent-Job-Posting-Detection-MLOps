@@ -1,0 +1,15 @@
+artifact_uri: mlflow-artifacts:/0/89d2ad28b6914d22902eb3651a6f6811/artifacts
+end_time: 1732572960149
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 89d2ad28b6914d22902eb3651a6f6811
+run_name: Second_Best_Run
+run_uuid: 89d2ad28b6914d22902eb3651a6f6811
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1732572952003
+status: 3
+tags: []
+user_id: devondelgado
